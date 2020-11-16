@@ -6,22 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.List;
+import java.io.IOException;
 
-@WebServlet(name = "cs", urlPatterns = { "/" })
-public class ControleurServlet extends HttpServlet {
-    private static final long serialVersionUID = 1825023232864573043L;
-
-    public static ProduitModele modele = new ProduitModele();
+@WebServlet(name = "delete", urlPatterns = { "/delete" })
+public class DeleteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
         CatalogueImpl metier = new CatalogueImpl();
-        List<Produit> prods = metier.getAllProducts();
-        modele.setProduits(prods);
-        req.setAttribute("modele", modele);
-        req.setAttribute("arr", modele.produits);
+        if (id != null) {
+            metier.deleteProduitById(Integer.parseInt(id));
+        }
         RequestDispatcher rd = req.getRequestDispatcher("ProduitsView.jsp");
         rd.forward(req, resp);
     }

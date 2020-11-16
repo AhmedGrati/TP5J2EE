@@ -32,6 +32,13 @@ public class Produit implements Serializable {
         this.quantity = quantity;
     }
 
+    public Produit(Long idProduit, String nomProduit, double prix, int quantity) {
+        this.idProduit = idProduit;
+        this.nomProduit = nomProduit;
+        this.prix = prix;
+        this.quantity = quantity;
+    }
+
     public Long getIdProduit() {
         return idProduit;
     }
